@@ -104,13 +104,16 @@ export const CodeEditor = ({ code, onChange }) => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="bg-gray-800 px-4 py-2 border-b border-gray-700">
-        <span className="text-sm text-gray-400">main.custom</span>
+      <div className="flex items-center justify-between border-b border-slate-600/40 bg-slate-900/60 px-4 py-2">
+        <span className="text-sm font-medium text-slate-300">main.custom</span>
+        <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-300">
+          {lineNumbers.length} lines
+        </span>
       </div>
 
-      <div className="flex-1 flex bg-gray-900 relative overflow-hidden">
+      <div className="relative flex flex-1 overflow-hidden bg-slate-950/70">
         {/* Line Numbers */}
-        <div className="bg-gray-800 text-gray-500 text-sm font-mono py-4 px-2 select-none border-r border-gray-700 min-w-[60px]">
+        <div className="min-w-[64px] select-none border-r border-slate-700/70 bg-slate-900/90 px-2 py-4 font-mono text-sm text-slate-500">
           {lineNumbers.map((num) => (
             <div key={num} className="h-6 flex items-center justify-end pr-2">
               {num}
@@ -119,7 +122,7 @@ export const CodeEditor = ({ code, onChange }) => {
         </div>
 
         {/* Code Area */}
-        <div className="flex-1 relative font-mono text-sm leading-6">
+        <div className="relative flex-1 font-mono text-sm leading-6">
           {/* Syntax Highlighting Overlay */}
           <div
             className="absolute inset-0 p-4 whitespace-pre-wrap pointer-events-none z-0"
@@ -132,7 +135,7 @@ export const CodeEditor = ({ code, onChange }) => {
           <textarea
             value={code}
             onChange={handleChange}
-            className="absolute inset-0 w-full h-full bg-transparent text-transparent caret-white z-10 p-4 border-none outline-none resize-none"
+            className="absolute inset-0 z-10 h-full w-full resize-none border-none bg-transparent p-4 text-transparent caret-emerald-300 outline-none"
             style={{ tabSize: 2, lineHeight: "1.5rem" }}
             spellCheck={false}
             autoComplete="off"
