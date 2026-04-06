@@ -2,8 +2,8 @@
 #define UTILS_H
 
 #include <string>
-#undef UNICODE
-#undef _UNICODE
+
+#ifdef _WIN32
 #include <windows.h>
 
 inline std::string wstringToString(const std::wstring& wstr) {
@@ -21,5 +21,21 @@ inline std::wstring stringToWstring(const std::string& str) {
     MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.length(), &wstrTo[0], size_needed);
     return wstrTo;
 }
+#else
+#include <codecvt>
+#include <locale>
+
+inline std::string wstringToString(const std::wstring& wstr) {
+    if (wstr.empty()) return std::string();
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    return converter.to_bytes(wstr);
+}
+
+inline std::wstring stringToWstring(const std::string& str) {
+    if (str.empty()) return std::wstring();
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    return converter.from_bytes(str);
+}
+#endif
 
 #endif 

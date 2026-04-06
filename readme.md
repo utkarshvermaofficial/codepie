@@ -38,7 +38,7 @@ compiler-design-PBL/
 │   |    │   ├── Optimizer.cpp
 │   |    │   ├── Parser.cpp
 │   |    │   └── SemanticAnalyzer.cpp
-│   |    └── compiler.exe               # Compiled C++ executable
+│   |    └── compiler                   # Compiled C++ executable
 |   ├── user
 |   ├── .gitignore
 |   ├── server.js                      # Node.js server to interface backend and frontend

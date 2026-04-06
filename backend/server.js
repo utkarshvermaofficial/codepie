@@ -38,7 +38,7 @@ app.use(express.json());
 const userDir = path.join(__dirname, "user");
 await mkdir(userDir, { recursive: true });
 
-const ptyProcess = pty.spawn("powershell.exe", [], {
+const ptyProcess = pty.spawn("zsh", [], {
   name: "xterm-color",
   cols: 80,
   rows: 30,
@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
   // === C Code Compilation + Execution ===
   socket.on("run:c", async () => {
     const cFilePath = path.join(userDir, "code.c");
-    const exePath = path.join(userDir, "a.exe");
+    const exePath = path.join(userDir, "a.out");
 
     // Step 1: Compile using gcc
     const gcc = spawn("gcc", [cFilePath, "-o", exePath]);
@@ -117,7 +117,7 @@ chokidar.watch(userDir).on("all", (event, changedPath) => {
 });
 
 // === Compiler Integration ===
-const COMPILER_PATH = path.resolve("./compiler/compiler.exe");
+const COMPILER_PATH = path.resolve("./compiler/compiler");
 const execFileAsync = promisify(execFile);
 
 app.post("/compile", async (req, res) => {

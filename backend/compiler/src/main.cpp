@@ -54,7 +54,7 @@ void writeListToFile(const fs::path& path, const std::vector<std::string>& lines
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
-        std::cerr << "Usage: compiler.exe <input_file> <output_dir>\n";
+        std::cerr << "Usage: compiler <input_file> <output_dir>\n";
         return 1;
     }
 

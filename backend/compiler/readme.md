@@ -1,5 +1,5 @@
-Run it using this command:-
+Run it using this command on macOS:-
 
-g++ -std=c++17 -Iinclude src/*.cpp -o compiler.exe -lgdi32 -DUNICODE -D_UNICODE
+clang++ -std=c++17 -Iinclude src/*.cpp -o compiler
 then:-
-./compiler.exe
+./compiler <input_file> <output_dir>

@@ -1,10 +1,10 @@
 #ifndef UI_H
 #define UI_H
-#undef UNICODE
-#undef _UNICODE
-#include <windows.h>
 #include <string>
 #include <vector>
+
+#ifdef _WIN32
+#include <windows.h>
 
 #define IDC_CODE_INPUT   101
 #define IDC_COMPILE_BTN  102
@@ -40,5 +40,37 @@ private:
     std::vector<std::string> lastErrors;
     std::string lastCCode;
 };
+
+#else
+
+using HINSTANCE = void*;
+using HWND = void*;
+using UINT = unsigned int;
+using WPARAM = unsigned long long;
+using LPARAM = long long;
+using LRESULT = long long;
+
+#ifndef CALLBACK
+#define CALLBACK
+#endif
+
+class CompilerUI {
+public:
+    explicit CompilerUI(HINSTANCE) {}
+    int run() { return 0; }
+
+    void setErrorOutput(const std::vector<std::string>&) {}
+    void setCCodeOutput(const std::string&) {}
+
+    std::string getCodeInput() const { return std::string(); }
+
+    LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM) { return 0; }
+
+    static CompilerUI* instance;
+
+    void onCompile() {}
+};
+
+#endif
 
 #endif 

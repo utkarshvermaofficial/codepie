@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Built compiler binary
+compiler/compiler
+compiler/compiler.exe
