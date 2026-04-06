@@ -5,12 +5,12 @@
 #include <string>
 #include <sstream>
 
-#include "Lexer.h"
-#include "Parser.h"
-#include "SemanticAnalyzer.h"
-#include "IntermediateCodeGen.h"
-#include "Optimizer.h"
-#include "CodeGenerator.h"
+#include "../include/Lexer.h"
+#include "../include/Parser.h"
+#include "../include/SemanticAnalyzer.h"
+#include "../include/IntermediateCodeGen.h"
+#include "../include/Optimizer.h"
+#include "../include/CodeGenerator.h"
 
 namespace fs = std::filesystem;
 
