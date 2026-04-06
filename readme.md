@@ -49,16 +49,12 @@ compiler-design-PBL/
 │   ├── public/
 │   │   └── vite.svg
 │   ├── src/
-│   │   ├── assets/
-│   │   │   ├── react.svg
-│   │   ├── component/                 # React components
+│   │   ├── components/                # React components
 │   │   │   ├── CodeEditor.jsx
-│   │   │   ├── CompilationTab.jsx
-│   │   │   ├── Terminal.tsx
-│   │   │   └── Terminal2.jsx
+│   │   │   ├── CompilationTabs.jsx
+│   │   │   └── Terminal.jsx
 │   │   ├── hooks/
 │   │   │   └── use-toast.jsx          # Custom React hook
-│   │   ├── App.css
 │   │   ├── App.jsx
 │   │   ├── index.css
 │   │   ├── main.jsx

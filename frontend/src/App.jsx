@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { CodeEditor } from "./component/CodeEditor";
-import { CompilationTabs } from "./component/CompilationTab";
+import { CodeEditor } from "./components/CodeEditor";
+import { CompilationTabs } from "./components/CompilationTabs";
 // import { TerminaA}
-import { TerminalA } from "./component/Terminal2";
+import { TerminalA } from "./components/Terminal";
 import { LoaderCircle, Play, Save, WandSparkles } from "lucide-react";
 import { useToast } from "./hooks/use-toast";
 import socket from "./socket";
