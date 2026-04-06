@@ -3,7 +3,6 @@ import { CodeEditor } from "./component/CodeEditor";
 import { CompilationTabs } from "./component/CompilationTab";
 // import { TerminaA}
 import { TerminalA } from "./component/Terminal2";
-import { Play, Save } from "lucide-react";
 import { useToast } from "./hooks/use-toast";
 import socket from "./socket";
 
@@ -88,17 +87,28 @@ output a`
   };
 
   return (
-    <div className="h-screen bg-gray-900 text-white flex flex-col">
-      <header className="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-blue-400">Custom Language IDE</h1>
-        <div className="flex space-x-2">
+    <div className="min-h-screen p-3 md:p-5 lg:p-6">
+      <div className="mx-auto max-w-[1600px]">
+        <header className="mb-4 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.34)] backdrop-blur-sm md:p-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 className="text-xl font-semibold tracking-tight text-[var(--text)] md:text-2xl">
+                Codepie Studio
+              </h1>
+              <p className="text-sm text-[var(--muted)]">
+                Edit, compile, inspect pipeline output, and execute generated C
+                code.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
           <button
             onClick={handleCompile}
             disabled={isCompiling}
-            className={`px-3 py-1 rounded text-white ${
+            className={`rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors ${
               isCompiling
-                ? "bg-green-800 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700"
+                ? "cursor-not-allowed bg-emerald-800/70"
+                : "bg-[var(--primary)] hover:bg-[var(--primary-strong)]"
             }`}
           >
             {isCompiling ? "Compiling..." : "Compile & Run"}
@@ -106,34 +116,36 @@ output a`
 
           <button
             onClick={runCompiledCCode}
-            className="px-3 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white"
+            className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500"
           >
             Run C Code
           </button>
 
           <button
             onClick={handleSave}
-            className="px-3 py-1 rounded border border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="rounded-lg border border-slate-500/60 px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700/40"
           >
             Save
           </button>
         </div>
-      </header>
-
-      <main className="flex-1 flex">
-        <section className="w-1/2 border-r border-gray-700">
-          <CodeEditor code={code} onChange={setCode} />
-        </section>
-
-        <section className="w-1/2 flex flex-col">
-          <div className="flex-1 overflow-y-auto">
-            <CompilationTabs data={compilationData} />
           </div>
-          <div className="h-56 mb-4 overflow-y-auto border-t border-gray-700">
-            <TerminalA />
-          </div>
-        </section>
-      </main>
+        </header>
+
+        <main className="flex min-h-[calc(100vh-170px)] flex-col gap-4 lg:flex-row">
+          <section className="min-h-[420px] overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm lg:w-1/2">
+            <CodeEditor code={code} onChange={setCode} />
+          </section>
+
+          <section className="flex min-h-[420px] flex-col gap-4 lg:w-1/2">
+            <div className="min-h-[260px] flex-1 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
+              <CompilationTabs data={compilationData} />
+            </div>
+            <div className="h-64 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
+              <TerminalA />
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
