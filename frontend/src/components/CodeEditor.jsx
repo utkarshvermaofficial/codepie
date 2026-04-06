@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-// SyntaxHighlighter component
+// ==========================================
+// Syntax Highlighting Rules
+// Defines Regex patterns and corresponding Tailwind colors for token highlighting
+// ==========================================
 const rules = [
   {
     regex: /"([^"\\]*(\\.[^"\\]*)*)"|'([^'\\]*(\\.[^'\\]*)*)'/g,
@@ -29,7 +32,10 @@ const rules = [
   },
 ];
 
-// Tokenizer function
+// ==========================================
+// Tokenizer Engine
+// Parses source text according to rules and generates highlighted token slices 
+// ==========================================
 function tokenize(text, rules) {
   let tokens = [{ text, className: null }];
 

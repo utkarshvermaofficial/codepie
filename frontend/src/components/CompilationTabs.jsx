@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+// ==========================================
+// Compilation Results View
+// Renders tabs handling different pipeline outputs (Tokens, Errors, IR, C Code, Output)
+// ==========================================
 export const CompilationTabs = ({ data }) => {
   const [activeTab, setActiveTab] = useState("tokens");
 
@@ -16,6 +20,10 @@ export const CompilationTabs = ({ data }) => {
     );
   }
 
+  // ==========================================
+  // Tab Schema Definitions & State
+  // Controls available tabs and calculates current errors metric
+  // ==========================================
   const tabs = [
     { id: "tokens", label: "Tokens" },
     { id: "errors", label: "Errors" },

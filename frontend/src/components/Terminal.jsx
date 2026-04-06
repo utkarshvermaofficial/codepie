@@ -1,9 +1,12 @@
 import { Terminal as XTerminal } from "@xterm/xterm";
 import { useEffect, useRef } from "react";
 import socket from "../socket";
-
 import "@xterm/xterm/css/xterm.css";
 
+// ==========================================
+// Interactive Web Terminal
+// Pipes stdout and stdin between Socket.io backend server and Xterm.js UI
+// ==========================================
 export const TerminalA = () => {
   const terminalRef = useRef();
   const isRendered = useRef(false);
@@ -12,6 +15,10 @@ export const TerminalA = () => {
     if (isRendered.current) return;
     isRendered.current = true;
 
+    // ==========================================
+    // XTerminal Initialization & Theming
+    // Sets up dimensions and a custom dark palette
+    // ==========================================
     const term = new XTerminal({
       rows: 20,
       cursorBlink: true,
@@ -36,6 +43,10 @@ export const TerminalA = () => {
         white: "#dbeafe",
         brightWhite: "#eff6ff",
       },
+    // ==========================================
+    // Socket Handlers
+    // Binds input events emitting to backend, and writes incoming server logs
+    // ==========================================
     });
 
     term.open(terminalRef.current);
@@ -46,6 +57,10 @@ export const TerminalA = () => {
 
     function onTerminalData(data) {
       term.write(data);
+    // ==========================================
+    // Teardown Hooks
+    // Cleans up event listeners and disposes instance to prevent memory leaks
+    // ==========================================
     }
 
     socket.on("terminal:data", onTerminalData);
