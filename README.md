@@ -94,8 +94,8 @@ Make sure the following are installed on your system:
 2. **Compile the Local Compiler (Required if running for the first time):**
    ```bash
    cd backend/compiler
-   # Example build command using g++
-   g++ -std=c++17 -I./include src/*.cpp -o compiler
+    # Example build command using clang++
+    clang++ -std=c++17 -I./include src/*.cpp -o compiler
    cd ../..
    ```
 
