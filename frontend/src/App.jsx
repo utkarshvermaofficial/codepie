@@ -117,7 +117,7 @@ output a`
             ) : (
               <WandSparkles size={16} />
             )}
-            {isCompiling ? "Compiling..." : "Compile & Run"}
+            {isCompiling ? "Compiling..." : "Compile"}
           </button>
 
           <button

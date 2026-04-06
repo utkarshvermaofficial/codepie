@@ -26,3 +26,8 @@ dist-ssr
 # Built compiler binary
 compiler/compiler
 compiler/compiler.exe
+
+# Generated user code and runtime artifacts
+user/code.c
+user/a.out
+user/a.exe
