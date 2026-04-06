@@ -111,7 +111,10 @@ export const CompilationTabs = ({ data }) => {
         )}
 
         {activeTab === "output" && (
-          <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-emerald-700/40 bg-emerald-950/30 p-4 font-mono text-sm text-emerald-300">
+          <pre
+            className="overflow-auto whitespace-pre-wrap rounded-lg border border-emerald-700/40 bg-emerald-950/30 p-4 font-mono text-sm text-emerald-300"
+            style={{ wordBreak: 'break-word', maxWidth: '100%', boxSizing: 'border-box' }}
+          >
             {data.output || "No output available."}
           </pre>
         )}
