@@ -18,55 +18,51 @@ This project is a Compiler for our own Programming language named "Codepie". The
 ## **Project Structure**
 
 ```
-compiler-design-PBL/
+codepie/
 ├── backend/
-│   └── compiler/
-│   |    ├── include/                   # Header files for compiler components
-│   |    │   ├── Lexer.h
-│   |    │   ├── CodeGenerator.h
-│   |    │   ├── IntermediateCodeGen.h
-│   |    │   ├── Optimizer.h
-│   |    │   ├── Parser.h
-│   |    │   ├── SemanticAnalyzer.h
-│   |    │   ├── UI.h
-│   |    │   └── Utils.h
-│   |    ├── src/                       # Source files for compiler components
-│   |    │   ├── CodeGenerator.cpp
-│   |    │   ├── IntermediateCodeGen.cpp
-│   |    │   ├── Lexer.cpp
-│   |    │   ├── main.cpp
-│   |    │   ├── Optimizer.cpp
-│   |    │   ├── Parser.cpp
-│   |    │   └── SemanticAnalyzer.cpp
-│   |    └── compiler                   # Compiled C++ executable
-|   ├── user
-|   ├── .gitignore
-|   ├── server.js                      # Node.js server to interface backend and frontend
-|   ├── package.json                   # Backend dependencies
-|   └── package-lock.json
-|
-├── frontend/                             # Frontend (Vite + React)
-│   ├── public/
-│   │   └── vite.svg
+│   ├── compiler/                  # C++ Compiler source code and executable
+│   │   ├── include/               # Header files defining compiler components
+│   │   │   ├── Lexer.h            # Tokenizer definitions for lexical analysis
+│   │   │   ├── CodeGenerator.h    # Target C code generation logic
+│   │   │   ├── IntermediateCodeGen.h # Logic for handling IR generation
+│   │   │   ├── Optimizer.h        # Defines IR optimization routines
+│   │   │   ├── Parser.h           # Syntax analysis definitions (AST building)
+│   │   │   ├── SemanticAnalyzer.h # Semantic analysis & type checking logic
+│   │   │   ├── UI.h               # Console and file output utilities
+│   │   │   └── Utils.h            # Shared helper functions
+│   │   ├── src/                   # Source files implementing compiler logic
+│   │   │   ├── CodeGenerator.cpp  # Implements translation from IR to C code
+│   │   │   ├── IntermediateCodeGen.cpp # Builds intermediate representation
+│   │   │   ├── Lexer.cpp          # Converts source text stream into tokens
+│   │   │   ├── main.cpp           # Compiler executable entry point
+│   │   │   ├── Optimizer.cpp      # Optimizes generated IR for performance
+│   │   │   ├── Parser.cpp         # Parses tokens into Abstract Syntax Tree
+│   │   │   └── SemanticAnalyzer.cpp # Validates language semantics
+│   │   ├── compiler               # The resulting compiled C++ executable
+│   │   └── readme.md              # Compiler-specific documentation
+│   ├── user/
+│   │   └── code.c                 # Output directory for the generated C code
+│   ├── server.js                  # Node.js/Socket.io backend bridging frontend and compiler
+│   └── package.json               # Backend Node.js dependencies
+├── frontend/                      # User Interface (Vite + React)
+│   ├── public/                    # Static UI assets
 │   ├── src/
-│   │   ├── components/                # React components
-│   │   │   ├── CodeEditor.jsx
-│   │   │   ├── CompilationTabs.jsx
-│   │   │   └── Terminal.jsx
+│   │   ├── assets/                # App-specific images and icons
+│   │   ├── components/            # Reusable React UI components
+│   │   │   ├── CodeEditor.jsx     # Handles the main IDE code input interface
+│   │   │   ├── CompilationTabs.jsx # Manages tabs mapping (Errors, IR, C Code, Output)
+│   │   │   └── Terminal.jsx       # Read-only UI terminal showing program output
 │   │   ├── hooks/
-│   │   │   └── use-toast.jsx          # Custom React hook
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   ├── main.jsx
-│   │   └── socket.js                  # WebSocket client
-│   ├── .gitignore
-│   ├── eslint.config.js              # Linting rules
-│   ├── package.json                  # Frontend dependencies
-│   ├── package-lock.json
-│   ├── index.html
-│   ├── vite.config.js                # Vite configuration
-│   ├── README.md                     # Frontend-specific documentation
-└── readme.md                         # (global README)
+│   │   │   └── use-toast.jsx      # Custom notifications/toast hook
+│   │   ├── App.jsx                # Main application entry component
+│   │   ├── index.css              # Global styles (Tailwind configured)
+│   │   ├── main.jsx               # React DOM rendering entry point
+│   │   └── socket.js              # WebSocket client linking UI directly to backend
+│   ├── eslint.config.js           # Code linting rules and format checks
+│   ├── package.json               # Frontend dependencies and run scripts
+│   ├── vite.config.js             # Vite bundler and dev server configuration
+│   └── index.html                 # Main frontend DOM container
+└── README.md                      # Global documentation (This file)
 ```
 
 ## **Screenshots And Videos**
@@ -83,10 +79,10 @@ Make sure the following are installed on your system:
 
 - For Backend (C++ Compiler)
   - C++17 or higher
-  - Compiler like g++ or clang
+  - Generic compiler stack like g++ or clang
 
 - For Server (Node.js Bridge)
-  - Node.js (v16 or above recommended)
+  - Node.js (v18 or above recommended)
   - npm (Node Package Manager)
 
 - For Frontend (Vite + React UI)
@@ -94,18 +90,40 @@ Make sure the following are installed on your system:
 
 - Modern Browser (e.g., Chrome, Edge, Firefox)
 
-### **Build Instructions**
+### **How To Run On Local**
 
-1. Navigate to the folder compiler-design-PBL by using the command `cd compiler-design-PBL`
-2. Clone the repository using `git clone -b compiler_final https://github.com/satyam1024/compiler-design-PBL.git`
-3. Please note that our code has many branches but the final code is in compiler_final branch and, so the clone command has been written accordingly.
-4. Navigate to the frontend directory using `cd compiler-design-PBL/frontend`
-5. run the command `npm i`
-6. then run `npm run dev` to start the frontend development server
-7. then open a new command prompt and navigate to the backend directory using `cd compiler-design-PBL/backend`
-8. run the command `npm i`
-9. then run `nodemon server.js` to start the server
-10. open the browser tab where the frontend is running and use the UI to write the code in codepie.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/utkarshvermaofficial/codepie.git
+   cd codepie
+   ```
+
+2. **Compile the Local Compiler (Required if running for the first time):**
+   ```bash
+   cd backend/compiler
+   # Example build command using g++
+   g++ -std=c++17 -I./include src/*.cpp -o compiler
+   cd ../..
+   ```
+
+3. **Start the Backend Node.js Server:**
+   Open a terminal window and navigate to the backend directory.
+   ```bash
+   cd backend
+   npm install
+   npm run start  # or you can use: nodemon server.js
+   ```
+
+4. **Start the Frontend UI Server:**
+   Open a *new* terminal window and navigate to the frontend directory.
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+5. **Interact via GUI:**
+   Open the browser tab displaying the local url shown by Vite (e.g. `http://localhost:5173`) and use the UI to write, view tokens/IR, and run the `codepie` language codes.
 
 ## **Language Specification**
 
@@ -234,6 +252,22 @@ if a == b then ...
 
 ### **Sample 6**
     repeat from i=1 to 15 jump 3
+
+## **Troubleshooting**
+
+Here are some common issues you might run into and how to fix them:
+
+- **Missing `compiler` file error when executing code via frontend:** 
+  You haven't compiled the C++ backend logic yet. Go to `backend/compiler/` and run the g++ command shown in the Setup Instructions snippet. Ensure the compiled output file is specifically named `compiler` or `compiler.exe`. If permissions are denied, grant execution access using `chmod +x backend/compiler/compiler`.
+  
+- **Dependencies installation errors on npm install:** 
+  There may be a node version conflict. Clear the node module caching by removing `node_modules` and `package-lock.json` completely from the failing directory (i.e., frontend or backend). Retrying `npm install` afterwards frequently fixes peer dependency failures.
+  
+- **Port 5173 / Port 3000 conflicts:**
+  Ensure no rogue instances of the servers are already running on these default ports. Check utilizing `lsof -i :3000` or simply modify your node `server.js` listener / Vite configuration files respectively as an alternative.
+  
+- **UI displays disconnected/WebSocket errors:** 
+  It generally happens if the backend application is off. Leave the frontend running and make sure your server `backend/server.js` was effectively booted in a side-by-side terminal outputting its "Server running" console log.
         output i
 
 ## **Technologies Used**
