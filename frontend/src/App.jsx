@@ -3,6 +3,7 @@ import { CodeEditor } from "./component/CodeEditor";
 import { CompilationTabs } from "./component/CompilationTab";
 // import { TerminaA}
 import { TerminalA } from "./component/Terminal2";
+import { LoaderCircle, Play, Save, WandSparkles } from "lucide-react";
 import { useToast } from "./hooks/use-toast";
 import socket from "./socket";
 
@@ -89,7 +90,7 @@ output a`
   return (
     <div className="min-h-screen p-3 md:p-5 lg:p-6">
       <div className="mx-auto max-w-[1600px]">
-        <header className="mb-4 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.34)] backdrop-blur-sm md:p-5">
+        <header className="fade-up mb-4 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.34)] backdrop-blur-sm md:p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-tight text-[var(--text)] md:text-2xl">
@@ -105,26 +106,33 @@ output a`
           <button
             onClick={handleCompile}
             disabled={isCompiling}
-            className={`rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors ${
+            className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white transition-colors ${
               isCompiling
                 ? "cursor-not-allowed bg-emerald-800/70"
                 : "bg-[var(--primary)] hover:bg-[var(--primary-strong)]"
             }`}
           >
+            {isCompiling ? (
+              <LoaderCircle size={16} className="animate-spin" />
+            ) : (
+              <WandSparkles size={16} />
+            )}
             {isCompiling ? "Compiling..." : "Compile & Run"}
           </button>
 
           <button
             onClick={runCompiledCCode}
-            className="rounded-lg bg-sky-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500"
+            className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-500"
           >
+            <Play size={16} />
             Run C Code
           </button>
 
           <button
             onClick={handleSave}
-            className="rounded-lg border border-slate-500/60 px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700/40"
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-500/60 px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700/40"
           >
+            <Save size={16} />
             Save
           </button>
         </div>
@@ -132,15 +140,15 @@ output a`
         </header>
 
         <main className="flex min-h-[calc(100vh-170px)] flex-col gap-4 lg:flex-row">
-          <section className="min-h-[420px] overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm lg:w-1/2">
+          <section className="fade-up fade-delay-1 min-h-[420px] overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm lg:w-1/2">
             <CodeEditor code={code} onChange={setCode} />
           </section>
 
           <section className="flex min-h-[420px] flex-col gap-4 lg:w-1/2">
-            <div className="min-h-[260px] flex-1 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
+            <div className="fade-up fade-delay-2 min-h-[260px] flex-1 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
               <CompilationTabs data={compilationData} />
             </div>
-            <div className="h-64 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
+            <div className="fade-up fade-delay-3 h-64 overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-[0_16px_32px_rgba(0,0,0,0.26)] backdrop-blur-sm">
               <TerminalA />
             </div>
           </section>

@@ -41,3 +41,39 @@ textarea,
 .font-mono {
 	font-family: "JetBrains Mono", "Menlo", monospace;
 }
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fade-up {
+	animation: fade-up 0.45s ease-out both;
+}
+
+.fade-delay-1 {
+	animation-delay: 60ms;
+}
+
+.fade-delay-2 {
+	animation-delay: 120ms;
+}
+
+.fade-delay-3 {
+	animation-delay: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fade-up,
+	.fade-delay-1,
+	.fade-delay-2,
+	.fade-delay-3 {
+		animation: none;
+	}
+}
