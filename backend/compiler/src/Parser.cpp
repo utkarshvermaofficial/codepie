@@ -6,6 +6,10 @@
 Parser::Parser(const std::vector<Token>& tks)
     : tokens(tks), pos(0) {}
 
+// ==========================================
+// Token Sequence Traversal
+// Peak or consume tokens from the token stream
+// ==========================================
 const Token& Parser::peek() const {
     return CURRENT_TOKEN;
 }
@@ -33,12 +37,20 @@ void Parser::expect(TokenType type, const std::string& errorMsg) {
     }
 }
 
+// ==========================================
+// Main Parsing Entry Point
+// Triggers the parsing of statements and assembles AST
+// ==========================================
 std::unique_ptr<Program> Parser::parse() {
     auto program = std::make_unique<Program>();
     while (peek().type != TokenType::END_OF_FILE) {
         auto stmt = parseStatement();
         if (stmt) program->statements.push_back(std::move(stmt));
         else get(); 
+// ==========================================
+// Statements Parsing
+// Parses specific Codepie statements like LET, IO, and Control structures
+// ==========================================
     }
     return program;
 }
@@ -182,6 +194,10 @@ std::unique_ptr<Statement> Parser::parseRepeat() {
         get(); 
         stmt->untilCondition = parseExpression();
         stmt->body.push_back(parseStatement());
+// ==========================================
+// Expressions Parsing 
+// Parses literals, identifiers and relational operation expressions 
+// ==========================================
     } else {
         errors.push_back("Line " + std::to_string(peek().line) + ": Expected 'from' or 'until' after 'repeat'.");
         return nullptr;
@@ -235,6 +251,10 @@ std::unique_ptr<Expression> Parser::parseExpression() {
         rel->column = left->column;
         rel->op = op;
         rel->left = std::move(left);
+// ==========================================
+// Error Reporting
+// Returns syntax errors accumulated during parsing
+// ==========================================
         rel->right = std::move(right);
 
         return rel;

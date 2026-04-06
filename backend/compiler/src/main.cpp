@@ -14,7 +14,10 @@
 
 namespace fs = std::filesystem;
 
-
+// ==========================================
+// Formatting & File Utility Helpers
+// Formats IR Strings and writes pipeline outputs to files
+// ==========================================
 std::string irInstructionToString(const IRInstruction& instr) {
     std::stringstream ss;
     ss << "Line " << instr.line << ": " << instr.opcode;
@@ -52,6 +55,10 @@ void writeListToFile(const fs::path& path, const std::vector<std::string>& lines
     }
 }
 
+// ==========================================
+// Compiler Entry Point
+// Parses command line arguments, integrates compiler phases, and writes output files
+// ==========================================
 int main(int argc, char* argv[]) {
     if (argc < 3) {
         std::cerr << "Usage: compiler <input_file> <output_dir>\n";

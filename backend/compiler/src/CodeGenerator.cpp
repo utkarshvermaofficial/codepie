@@ -6,17 +6,29 @@
 
 CodeGenerator::CodeGenerator() {}
 
+// ==========================================
+// Type Promotion Helper
+// Promotes types based on C semantics
+// ==========================================
 std::string promote(const std::string& t1, const std::string& t2) {
     if (t1 == "const char*" || t2 == "const char*") return "const char*";
     if (t1 == "double" || t2 == "double") return "double";
     return "int";
 }
 
+// ==========================================
+// Variable Identifier Check
+// Checks if a given string is a valid variable name
+// ==========================================
 bool CodeGenerator::isIdentifier(const std::string& s) const {
     if (s.empty()) return false;
     if (!(isalpha(s[0]) || s[0] == '_')) return false;
     for (char c : s) {
         if (!(isalnum(c) || c == '_')) return false;
+// ==========================================
+// Main C Code Generation
+// Loops through IR instructions and maps them to C statements
+// ==========================================
     }
     return true;
 }
@@ -108,6 +120,10 @@ void CodeGenerator::generate(const std::vector<IRInstruction>& ir) {
         }
     }
 
+// ==========================================
+// Variable Declaration Helper
+// Infers and registers Variable Types dynamically
+// ==========================================
     oss << "    return 0;\n}\n";
     cCode = oss.str();
 }
@@ -125,6 +141,10 @@ void CodeGenerator::declareVar(const std::string& var, const std::string& value)
     } else if (isInteger(value)) {
         declaredVars[var] = "int";
     } else if (isDouble(value)) {
+// ==========================================
+// Type Identification Helpers
+// Identifies if string is Int or Double
+// ==========================================
         declaredVars[var] = "double";
     } else if (declaredVars.count(value)) {
         declaredVars[var] = declaredVars[value];

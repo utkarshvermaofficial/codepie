@@ -28,6 +28,10 @@ static const std::unordered_map<std::string, TokenType> keywords = {
 Lexer::Lexer(const std::string& src)
     : source(src), pos(0), line(1), column(1) {}
 
+// ==========================================
+// Character Inspection & Acquisition Methods
+// Peek ahead or consume the next character
+// ==========================================
 char Lexer::peek() const {
     if (pos >= source.length()) return '\0';
     return source[pos];
@@ -49,6 +53,10 @@ void Lexer::skipWhitespace() {
     while (std::isspace(peek())) get();
 }
 
+// ==========================================
+// Tokenization Handlers
+// Functions for extracting specific token types (Keywords, Identifiers, Numbers, Strings, Relational Ops)
+// ==========================================
 Token Lexer::identifierOrKeyword() {
     int startCol = column;
     std::string lexeme;
@@ -96,6 +104,10 @@ Token Lexer::relOp() {
     }
     else if (c == '<' || c == '>') {
         return Token(TokenType::REL_OP, lexeme, line, startCol);
+// ==========================================
+// Main Tokenizer Loop
+// Iterates over source code and returns a clean vector of tokens
+// ==========================================
     }
     return Token(TokenType::INVALID, lexeme, line, startCol);
 }

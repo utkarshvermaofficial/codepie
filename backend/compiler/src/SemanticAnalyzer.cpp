@@ -3,6 +3,10 @@
 
 SemanticAnalyzer::SemanticAnalyzer() {}
 
+// ==========================================
+// Main Analysis Entry Point
+// Triggers AST traversal for semantic checks
+// ==========================================
 void SemanticAnalyzer::analyze(const Program* program) {
     symbolTable.clear();
     errors.clear();
@@ -11,6 +15,10 @@ void SemanticAnalyzer::analyze(const Program* program) {
     }
 }
 
+// ==========================================
+// Statement Analysis
+// Validates variable declarations, scopes, assignments, and control flows
+// ==========================================
 void SemanticAnalyzer::analyzeStatement(const Statement* stmt) {
     if (!stmt) return;
 
@@ -102,6 +110,10 @@ void SemanticAnalyzer::analyzeStatement(const Statement* stmt) {
             analyzeExpression(repeatStmt->untilCondition.get(), t);
         }
         for (const auto& s : repeatStmt->body) analyzeStatement(s.get());
+// ==========================================
+// Expression Analysis
+// Resolves and asserts types for variables, literals, and operations
+// ==========================================
         return;
     }
 }
@@ -153,6 +165,10 @@ void SemanticAnalyzer::analyzeExpression(const Expression* expr, VarType& outTyp
                << " and " << varTypeToString(rightType) << " using relational operator '" << rel->op << "'.";
             errors.push_back(ss.str());
         }
+// ==========================================
+// Symbol Table Operations
+// Manage and verify variable scope, memory, and types
+// ==========================================
 
         outType = VarType::BOOLEAN;
         return;
@@ -171,6 +187,10 @@ bool SemanticAnalyzer::isVariableDeclared(const std::string& name) const {
 
 VarType SemanticAnalyzer::getVariableType(const std::string& name) const {
     auto it = symbolTable.find(name);
+// ==========================================
+// Utility
+// Converts VarType Enum to String representation
+// ==========================================
     if (it != symbolTable.end()) return it->second.type;
     return VarType::UNKNOWN;
 }

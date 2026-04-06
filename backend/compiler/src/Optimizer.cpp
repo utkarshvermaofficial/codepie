@@ -4,6 +4,10 @@
 
 Optimizer::Optimizer() {}
 
+// ==========================================
+// Central Optimizer Function
+// Orchestrates optimization techniques over raw IR
+// ==========================================
 void Optimizer::optimize(const std::vector<IRInstruction>& inputIR) {
     optimizedIR = inputIR;
     constantFolding();
@@ -14,10 +18,18 @@ const std::vector<IRInstruction>& Optimizer::getOptimizedIR() const {
     return optimizedIR;
 }
 
+// ==========================================
+// Numeric Type Checker
+// Checks if string value can be evaluated to a number
+// ==========================================
 bool Optimizer::isNumber(const std::string& s) const {
     if (s.empty()) return false;
     std::istringstream iss(s);
     double d;
+// ==========================================
+// Constant Folding Optimization
+// Evaluates literal arithmetic expressions at compile time
+// ==========================================
     iss >> d;
     return iss.eof() && !iss.fail();
 }
@@ -57,6 +69,10 @@ void Optimizer::constantFolding() {
                 else if (instr.opcode == "GE") result = (left >= right);
                 else if (instr.opcode == "EQ") result = (left == right);
                 else if (instr.opcode == "NE") result = (left != right);
+// ==========================================
+// Redundant Assignment Removal
+// Prunes self-assignments and back-to-back duplicate assignments
+// ==========================================
                 
                 instr.opcode = "ASSIGN";
                 instr.operands = { std::to_string(result ? 1 : 0), instr.operands[2] };
