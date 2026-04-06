@@ -65,13 +65,6 @@ codepie/
 └── README.md                      # Global documentation (This file)
 ```
 
-## **Screenshots And Videos**
-
-![Screenshot 1](assets/screenshot_2.png)
-![Screenshot 2](assets/screenshot_1.png)
-#### **Video Deonstration**
-[![Demo](assets/screenshot_1.png)](assets/Codepie_demonstration.mp4)
-
 ## **Getting Started**
 
 ### **Prerequisites**
