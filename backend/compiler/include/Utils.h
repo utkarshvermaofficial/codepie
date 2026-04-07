@@ -6,6 +6,7 @@
 #ifdef _WIN32
 #include <windows.h>
 
+// Helper parsing native UTF-16 structures returning canonical UTF-8 bytes payload under Windows.
 inline std::string wstringToString(const std::wstring& wstr) {
     if (wstr.empty()) return std::string();
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), (int)wstr.length(), nullptr, 0, nullptr, nullptr);
@@ -14,6 +15,7 @@ inline std::string wstringToString(const std::wstring& wstr) {
     return strTo;
 }
 
+// Converts narrow multibyte encodings back directly producing compliant Windows Wide representation strings.
 inline std::wstring stringToWstring(const std::string& str) {
     if (str.empty()) return std::wstring();
     int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.length(), nullptr, 0);
@@ -25,12 +27,14 @@ inline std::wstring stringToWstring(const std::string& str) {
 #include <codecvt>
 #include <locale>
 
+// Helper leveraging standard generic locales mapping arbitrary wide characters returning UTF-8 arrays.
 inline std::string wstringToString(const std::wstring& wstr) {
     if (wstr.empty()) return std::string();
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     return converter.to_bytes(wstr);
 }
 
+// Interoperates native sequence generating internal wstring primitives compatible with external API demands.
 inline std::wstring stringToWstring(const std::string& str) {
     if (str.empty()) return std::wstring();
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
