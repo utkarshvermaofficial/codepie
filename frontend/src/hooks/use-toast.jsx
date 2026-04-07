@@ -1,8 +1,10 @@
 import * as React from "react";
 
+// Toast Configuration Constants
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
+// Action Types for State Management
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
@@ -12,6 +14,7 @@ const actionTypes = {
 
 let count = 0;
 
+// Generates a unique ID for each new toast
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
@@ -19,6 +22,7 @@ function genId() {
 
 const toastTimeouts = new Map();
 
+// Adds a toast to the queue to be removed after a delay
 const addToRemoveQueue = (toastId) => {
   if (toastTimeouts.has(toastId)) {
     return;
@@ -35,6 +39,7 @@ const addToRemoveQueue = (toastId) => {
   toastTimeouts.set(toastId, timeout);
 };
 
+// Reducer function to handle toast state transitions
 const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.ADD_TOAST:
@@ -86,11 +91,11 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
+// Global state and listeners for the toast system
 const listeners = [];
-
 let memoryState = { toasts: [] };
 
+// Dispatches an action to update the global memory state and notifies all listeners
 function dispatch(action) {
   memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
@@ -98,6 +103,7 @@ function dispatch(action) {
   });
 }
 
+// Main utility function to create and manage a new toast
 function toast(props) {
   const id = genId();
 
@@ -129,6 +135,7 @@ function toast(props) {
   };
 }
 
+// Custom React hook to access and interact with the toast state
 function useToast() {
   const [state, setState] = React.useState(memoryState);
 
