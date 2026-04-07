@@ -7,13 +7,16 @@ import { LoaderCircle, Play, Save, WandSparkles } from "lucide-react";
 import { useToast } from "./hooks/use-toast";
 import socket from "./socket";
 
+// Main Application Component
 const Index = () => {
+  // State management for code execution and compilation status
   const [code, setCode] = useState("");
   const [compilationData, setCompilationData] = useState(null);
   // const [terminalOutput, setTerminalOutput] = useState("");
   const [isCompiling, setIsCompiling] = useState(false);
   const { toast } = useToast();
 
+  // Load saved code from local storage on initial mount or set default code
   useEffect(() => {
     const savedCode = localStorage.getItem("customLangCode");
     if (savedCode) setCode(savedCode);
@@ -24,10 +27,12 @@ output a`
       );
   }, []);
 
+  // Emits socket event to run the compiled C code on the backend
   const runCompiledCCode = () => {
     socket.emit("run:c");
   };
 
+  // Handles the compilation process by sending code to the backend API
   const handleCompile = async () => {
     setIsCompiling(true);
     // setTerminalOutput("Compiling...\n");
@@ -77,6 +82,7 @@ output a`
     } finally {
       setIsCompiling(false);
     }
+  // Saves the current code in the editor to local storage
   };
 
   const handleSave = () => {
@@ -84,6 +90,7 @@ output a`
     toast({
       title: "Code Saved",
       description: "Your code has been saved locally.",
+  // Render the functional application UI layout
     });
   };
 
